@@ -32,18 +32,18 @@ class Artist
         #     end
         # end
 
-        if @@all.find{|artist| artist.name == name}
-            @@all.find{|artist| artist.name == name}
-        else
-            Artist.new(name)
-        end
-
-        # @@all.each do |artist|
-        #     if artist.name == name
-        #         return artist
-        #     end
+        # if @@all.find{|artist| artist.name == name}
+        #     @@all.find{|artist| artist.name == name}
+        # else
+        #     Artist.new(name)
         # end
-        # Artist.new(name)
+
+        @@all.each do |artist|
+            if artist.name == name
+                return artist
+            end
+        end
+        Artist.new(name)
     end
 
     def self.all
