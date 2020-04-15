@@ -1,17 +1,15 @@
 class MP3Importer
     attr_accessor :path 
-    @@path_directory = []
     
     #accepts a file path to parse mp3 files from
     def initialize(path)
-        @path = path 
-        @@path_directory << self 
+        @path = path
     end
 
     # loads all the mp3 files in the path directory
     # normalizes the filename to ".mp3" filename with no path
     def files
-        @@path_directory
+        @files ||= Dir.glob("#{path}/*.mp3").collect{ |f| f.gsub("#{path}/", "") }
     end
 
     # imports the files into the library by creating songs from a filename
@@ -20,8 +18,6 @@ class MP3Importer
     # This will send us to the Song class, specifically Song.new_by_filename and 
     # handle the creation of Song instances and their associated Artist instances.
     def import
-        @@library << files 
-
-        
+        files.each{|f| Song.new_by_filename(f)}
     end
 end

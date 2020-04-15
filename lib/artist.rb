@@ -1,7 +1,8 @@
 class Artist
-    attr_accessor :name
+    attr_accessor :name, :songs
     @@all = []
 
+    # find or create artist with name from Song class.
     def initialize(name)
         @name = name
         @@all << self
@@ -27,12 +28,17 @@ class Artist
     # Find the artist instance that has the passed in name or create one if it doesn't
     # exist. Return an instance of an artist with the name attribute filled out.
     def self.find_or_create_by_name(name)
-        Artist.all.select{|artist| artist == name }
-        
+        self.find(name) ? self.find(name) : self.new(name)
     end 
+
+    def self.find(name)
+        self.all.find {|artist| artist.name == name } 
+    end
 
     # outputs the names of all songs associated with this Artist instance.
     def print_songs
-        
+        songs.each do |song|
+            puts "#{song.name}"
+        end
     end 
 end
